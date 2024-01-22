@@ -6,26 +6,25 @@ class BaseProductSerializer(serializers.ModelSerializer):
     class Meta:
         abstract = True
         fields = ['pk', 'brand', 'model', 'price']
-
+ 
 
 class TvSerializer(BaseProductSerializer):
-    size = serializers.IntegerField(source='screeen_size')
+
     class Meta(BaseProductSerializer.Meta):
         model = Tv
-        fields = BaseProductSerializer.Meta.fields + ['screen_size']
+        fields = BaseProductSerializer.Meta.fields
 
 class PhoneSerializer(BaseProductSerializer):
-    color = serializers.CharField()
 
     class Meta(BaseProductSerializer.Meta):
         model = Phone
-        fields = BaseProductSerializer.Meta.fields + ['color']
+        fields = BaseProductSerializer.Meta.fields 
 
 class LaptopSerializer(BaseProductSerializer):
-    size = serializers.CharField(source='screen_size')
+
     class Meta(BaseProductSerializer.Meta):
         model = Laptop
-        fields = BaseProductSerializer.Meta.fields + ['size']
+        fields = BaseProductSerializer.Meta.fields
 
 class EarbudSerializer(BaseProductSerializer):
     has_lcd = serializers.BooleanField(source='with_lcd')
