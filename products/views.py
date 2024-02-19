@@ -1,4 +1,7 @@
-from rest_framework import generics
+import ptvsd
+ptvsd.enable_attach(address=('0.0.0.0', 5678))
+
+from rest_framework import generics, status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import permissions
@@ -7,14 +10,12 @@ from rest_framework.authentication import SessionAuthentication
 from .models import Tv, Phone, Laptop, Earbud
 from .serializers import TvSerializer, PhoneSerializer, EarbudSerializer, LaptopSerializer
 
-
 class ProductAPIViewBase(generics.GenericAPIView):
     authentication_classes = [SessionAuthentication]
     permission_classes = [permissions.AllowAny]
 
     def get_serializer_class(self):
         product = self.kwargs.get('product').capitalize()
-        print(self.kwargs)
         serializer_mapping = {
             'Tv': TvSerializer,
             'Phone': PhoneSerializer,
@@ -46,7 +47,11 @@ class ProductDetailAPIView(ProductAPIViewBase, generics.RetrieveAPIView):
 class ProductCreateAPIView(ProductAPIViewBase, generics.CreateAPIView):
     #permission_classes = [permissions.IsAdminUser]
 
+    def get(self, request, *args, **kwargs):   
+        return Response({'message': 'GET method for creating a new product'}, status=status.HTTP_200_OK)
+
     def perform_create(self, serializer):
+        
         serializer.save()
 
 class ProductListAPIView(ProductAPIViewBase, generics.ListAPIView):
@@ -79,6 +84,6 @@ class ProductDeleteAPIView(ProductAPIViewBase, generics.DestroyAPIView):
         instance = self.get_object()
         if instance:
             self.perform_destroy(instance)
-            return Response({'message': f"Object successfully deleted"})
+            return Response({'message': f"Object {instance}successfully deleted"})
         else:
             return Response({'error': 'Object not found'})

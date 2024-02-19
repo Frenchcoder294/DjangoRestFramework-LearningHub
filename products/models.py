@@ -5,7 +5,7 @@ class ProductType():
 
 class Tv(models.Model):
     brand = models.CharField(max_length=10)
-    model = models.CharField(max_length=30)
+    model = models.CharField(max_length=30, unique=True)
     screen_size = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     
@@ -19,7 +19,7 @@ class Tv(models.Model):
 
 class Laptop(models.Model):
     brand = models.CharField(max_length=10)
-    model = models.CharField(max_length=30)
+    model = models.CharField(max_length=30, unique=True)
     screen_size = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
@@ -30,15 +30,12 @@ class Laptop(models.Model):
     def sale_price(self):
         return '%.2f' %(float(self.price) * 0.85)
     
-
-    
 class Phone(models.Model):
         brand = models.CharField(max_length=10)
-        model = models.CharField(max_length=30)
+        model = models.CharField(max_length=30, unique=True)
         price = models.DecimalField(max_digits=6, decimal_places=2, default=99.99)
         color = models.CharField(max_length=15, default='black')
 
-            
         def __str__(self) -> str:
             return f"{(self.brand).upper()} {self.model} mobile phone "
 
@@ -49,7 +46,7 @@ class Phone(models.Model):
     
 class Earbud(models.Model):
         brand = models.CharField(max_length=10)
-        model = models.CharField(max_length=30)
+        model = models.CharField(max_length=30, unique=True)
         price = models.DecimalField(max_digits=6, decimal_places=2)
         with_lcd = models.BooleanField(default=False)
 
