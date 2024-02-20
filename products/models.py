@@ -9,13 +9,11 @@ class Tv(models.Model):
     screen_size = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     
-    
     def __str__(self) -> str:
         return f"{(self.brand).upper()} {self.screen_size} inch TV "
 
     def sale_price(self):
         return '%.2f' %(float(self.price) * 0.85)
-    
 
 class Laptop(models.Model):
     brand = models.CharField(max_length=10)
@@ -23,7 +21,6 @@ class Laptop(models.Model):
     screen_size = models.IntegerField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
-        
     def __str__(self) -> str:
         return f"{(self.brand).upper()} {self.screen_size} inch Laptop "
 

@@ -1,5 +1,5 @@
-import ptvsd
-ptvsd.enable_attach(address=('0.0.0.0', 5678))
+# import ptvsd
+# ptvsd.enable_attach(address=('0.0.0.0', 5678))
 
 from rest_framework import generics, status
 from rest_framework.generics import get_object_or_404
