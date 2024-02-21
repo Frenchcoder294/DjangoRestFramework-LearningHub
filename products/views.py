@@ -11,7 +11,7 @@ from .models import Tv, Phone, Laptop, Earbud
 from .serializers import TvSerializer, PhoneSerializer, EarbudSerializer, LaptopSerializer
 
 class ProductAPIViewBase(generics.GenericAPIView):
-    authentication_classes = [SessionAuthentication]
+    # authentication_classes = [SessionAuthentication]
     permission_classes = [permissions.AllowAny]
 
     def get_serializer_class(self):
@@ -45,13 +45,12 @@ class ProductDetailAPIView(ProductAPIViewBase, generics.RetrieveAPIView):
     pass
 
 class ProductCreateAPIView(ProductAPIViewBase, generics.CreateAPIView):
-    #permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):   
         return Response({'message': 'GET method for creating a new product'}, status=status.HTTP_200_OK)
 
     def perform_create(self, serializer):
-        
         serializer.save()
 
 class ProductListAPIView(ProductAPIViewBase, generics.ListAPIView):
