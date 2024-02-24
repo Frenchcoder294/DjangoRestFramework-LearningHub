@@ -23,6 +23,7 @@ from .models import Tv, Laptop, Phone, Earbud
 # user = User.objects.create_user(username="test_user", password="pass")
 
 
+# test functions of view classes
 class ProductAPIViewTests(TestCase):
     # setup the instances of models used in the test
     def setUp(self):
@@ -40,29 +41,6 @@ class ProductAPIViewTests(TestCase):
         self.earbud = Earbud.objects.create(
             model="Test earbud", brand="Test brand", with_lcd=False, price=999
         )
-
-    def test_create_view_phone(self):
-        data = {
-            "model": "Test phone",
-            "brand": "Test brand",
-            "color": "black",
-            "price": 999,
-        }
-
-        self.client.login(username="test_user", password="pass")
-        response = self.client.post("/products/phone/create/", data=data)
-
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertTrue(Phone.objects.filter(model="Test phone").exists())
-
-    def test_detail_view_tv(self):
-        response = self.client.get(f"/products/tv/5")
-        print(response)
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-        self.assertEqual(response.model, "Test Tv")
-        self.assertEqual(response.brand, "Test brand")
 
     # test get_serializer_class for tv
     def test_get_serializer_class_tv(self):
@@ -98,6 +76,52 @@ class ProductAPIViewTests(TestCase):
         view.kwargs = {"product": "tv", "pk": "1"}
         self.assertEqual(view.get_object(), Tv.objects.get(pk=1))
 
+
+# test urls (CRUD)
+class APIUrlTest(TestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.user = User.objects.create_user(username="test_user", password="pass")
+        self.tv = Tv.objects.create(
+            model="Test TV", brand="Test brand", screen_size=55, price=999
+        )
+
+    def test_create_url(self):
+        data = {
+            "model": "Test phone",
+            "brand": "Test brand",
+            "color": "black",
+            "price": 999,
+        }
+
+        self.client.login(username="test_user", password="pass")
+        response = self.client.post("/products/phone/create/", data=data)
+
+        # check response for creation of the instance
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(Phone.objects.filter(model="Test phone").exists())
+
+    def test_retrieve_url(self):
+        # allow the test to follow the url to the redirected path
+        response = self.client.get("/products/tv/1", follow=True)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        self.assertEqual(response.json()["model"], "Test TV")
+        self.assertEqual(response.json()["brand"], "Test brand")
+
+    def test_update_url(self):
+        data = {
+            "model": "Test TV",
+            "brand": "Test brand",
+            "screen_size": 50,
+            "price": 1100,
+        }
+        response = self.client.put("/products/tv/1/update/", data=data)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json()['screen_size'], 50)
+        self.assertEqual(response.json()['price'], '1100.00')
 
 # test class for authentication
 class ProductAuthTest(TestCase):

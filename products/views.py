@@ -87,6 +87,10 @@ class ProductUpdateAPIView(ProductAPIViewBase, generics.UpdateAPIView):
 
         return self.http_method_not_allowed(request)
 
+    # added for using patch, instead of put
+    # def partial_update(self, request, *args, **kwargs):
+    #     return self.update(request, *args, **kwargs)
+
 
 class ProductDeleteAPIView(ProductAPIViewBase, generics.DestroyAPIView):
 
