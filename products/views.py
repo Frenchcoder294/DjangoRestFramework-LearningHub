@@ -15,6 +15,7 @@ from .serializers import (
     LaptopSerializer,
 )
 
+from .utils import r
 
 class ProductAPIViewBase(generics.GenericAPIView):
     # authentication_classes = [SessionAuthentication]
@@ -53,7 +54,7 @@ class ProductDetailAPIView(ProductAPIViewBase, generics.RetrieveAPIView):
 
 
 class ProductCreateAPIView(ProductAPIViewBase, generics.CreateAPIView):
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
         return Response(
@@ -62,6 +63,7 @@ class ProductCreateAPIView(ProductAPIViewBase, generics.CreateAPIView):
         )
 
     def perform_create(self, serializer):
+        r.set('ser', 'the_serializer')
         serializer.save()
 
 

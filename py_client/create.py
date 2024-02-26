@@ -1,6 +1,6 @@
 import requests
 
-endpoint = 'http://localhost:8000/api/products/laptop/create/'
+endpoint = 'http://localhost:8000/products/laptop/create/'
 #endpoint = 2
 
 
