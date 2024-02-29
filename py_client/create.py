@@ -6,7 +6,7 @@ endpoint = 'http://localhost:8000/products/laptop/create/'
 
 data = {
     'brand': 'asus',
-    'model': 'x515',
+    'model': 'x5d15 ask',
     'price': 1959.97,
     #'has_lcd': False,
     'screen_size': 15,

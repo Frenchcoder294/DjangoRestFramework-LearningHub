@@ -15,7 +15,10 @@ from .serializers import (
     LaptopSerializer,
 )
 
-from .utils import r
+# from .utils import r
+# import json
+from django.core.cache import cache
+
 
 class ProductAPIViewBase(generics.GenericAPIView):
     # authentication_classes = [SessionAuthentication]
@@ -33,15 +36,22 @@ class ProductAPIViewBase(generics.GenericAPIView):
         return serializer_mapping.get(product, None)
 
     def get_queryset(self):
-        product = self.kwargs.get("product").capitalize()
-        model_mapping = {
-            "Tv": Tv,
-            "Phone": Phone,
-            "Laptop": Laptop,
-            "Earbud": Earbud,
-        }
-        model = model_mapping.get(product, None)
-        return model.objects.all() if model else None
+        # check if queryset is cached
+        queryset_cache_key = "product_queryset_{}".format(self.kwargs.get("product"))
+        queryset = cache.get(queryset_cache_key)
+        if queryset is None:
+            product = self.kwargs.get("product").capitalize()
+            model_mapping = {
+                "Tv": Tv,
+                "Phone": Phone,
+                "Laptop": Laptop,
+                "Earbud": Earbud,
+            }
+            model = model_mapping.get(product, None)
+            queryset = model.objects.all() if model else None
+            # Cache the queryset for future requests
+            cache.set(queryset_cache_key, queryset)
+        return queryset
 
     def get_object(self):
         queryset = self.get_queryset()
@@ -63,7 +73,6 @@ class ProductCreateAPIView(ProductAPIViewBase, generics.CreateAPIView):
         )
 
     def perform_create(self, serializer):
-        r.set('ser', 'the_serializer')
         serializer.save()
 
 
