@@ -124,6 +124,9 @@ AUTHENTICATION_BACKENDS = (
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://:Jrfwliaxc49EjovAcjKwPN79QdcSnEO0@redis-14042.c54.ap-northeast-1-2.ec2.cloud.redislabs.com:14042/0",
+        "LOCATION": "redis://127.0.0.1:6379/",
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
     }
 }
