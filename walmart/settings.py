@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'api',
     'products',
     'guardian',
+    'django-redis',
 ]
 
 MIDDLEWARE = [
@@ -129,4 +130,10 @@ CACHES = {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
     }
+}
+
+# pagination configs
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3
 }

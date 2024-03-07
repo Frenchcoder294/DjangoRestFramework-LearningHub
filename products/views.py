@@ -63,6 +63,10 @@ class ProductDetailAPIView(ProductAPIViewBase, generics.RetrieveAPIView):
     pass
 
 
+class ProductListAPIView(ProductAPIViewBase, generics.ListAPIView):
+    # permission_classes = [permissions.DjangoModelPermissions]
+    pass
+
 class ProductCreateAPIView(ProductAPIViewBase, generics.CreateAPIView):
     # permission_classes = [permissions.IsAuthenticated]
 
@@ -76,9 +80,6 @@ class ProductCreateAPIView(ProductAPIViewBase, generics.CreateAPIView):
         serializer.save()
 
 
-class ProductListAPIView(ProductAPIViewBase, generics.ListAPIView):
-    # permission_classes = [permissions.DjangoModelPermissions]
-    pass
 
 
 class ProductUpdateAPIView(ProductAPIViewBase, generics.UpdateAPIView):
