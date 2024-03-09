@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'api',
     'products',
     'guardian',
-    'django-redis',
 ]
 
 MIDDLEWARE = [

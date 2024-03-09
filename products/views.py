@@ -5,7 +5,7 @@ from rest_framework import generics, status
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import permissions
-from rest_framework.authentication import SessionAuthentication
+from rest_framework import authentication
 
 from .models import Tv, Phone, Laptop, Earbud
 from .serializers import (
@@ -64,8 +64,10 @@ class ProductDetailAPIView(ProductAPIViewBase, generics.RetrieveAPIView):
 
 
 class ProductListAPIView(ProductAPIViewBase, generics.ListAPIView):
-    # permission_classes = [permissions.DjangoModelPermissions]
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
     pass
+
 
 class ProductCreateAPIView(ProductAPIViewBase, generics.CreateAPIView):
     # permission_classes = [permissions.IsAuthenticated]
@@ -78,8 +80,6 @@ class ProductCreateAPIView(ProductAPIViewBase, generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save()
-
-
 
 
 class ProductUpdateAPIView(ProductAPIViewBase, generics.UpdateAPIView):
