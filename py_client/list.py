@@ -7,11 +7,16 @@ username = input('username:\n')
 password = getpass()
 
 auth_response = requests.post(auth_endpoint, json = {'username': username, 'password': password })
-print(auth_response.json())
-print(auth_response.status_code)
+# print('JSON:', auth_response.json())
+# print('Status: ', auth_response.status_code)
 
-# endpoint = "http://localhost:8000/api/products/tv/"
+endpoint = "http://localhost:8000/products/phone/"
+token = auth_response.json()['token']
 
-# response = requests.get(endpoint)
+headers = {
+    'Authorization': f'Token {token}'
+    }
 
-# print(response.json())
+response = requests.get(endpoint, headers=headers)
+
+print(response.json())

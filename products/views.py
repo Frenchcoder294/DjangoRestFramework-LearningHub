@@ -37,7 +37,7 @@ class ProductAPIViewBase(generics.GenericAPIView):
 
     def get_queryset(self):
         # check if queryset is cached
-        queryset_cache_key = "product_queryset_{}".format(self.kwargs.get("product"))
+        queryset_cache_key = f"product_queryset_{self.kwargs.get('product')}"
         queryset = cache.get(queryset_cache_key)
         if queryset is None:
             product = self.kwargs.get("product").capitalize()
@@ -65,7 +65,10 @@ class ProductDetailAPIView(ProductAPIViewBase, generics.RetrieveAPIView):
 
 class ProductListAPIView(ProductAPIViewBase, generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.TokenAuthentication]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        authentication.TokenAuthentication,
+    ]
     pass
 
 
