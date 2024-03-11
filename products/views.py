@@ -18,11 +18,14 @@ from .serializers import (
 # from .utils import r
 # import json
 from django.core.cache import cache
-
+from api.authentication import TokenAuth
 
 class ProductAPIViewBase(generics.GenericAPIView):
-    # authentication_classes = [SessionAuthentication]
-    permission_classes = [permissions.AllowAny]
+    authentication_classes = [
+        authentication.SessionAuthentication,
+        TokenAuth,
+    ]    
+    # permission_classes = [permissions.AllowAny]
 
     def get_serializer_class(self):
         product = self.kwargs.get("product").capitalize()
@@ -64,20 +67,20 @@ class ProductDetailAPIView(ProductAPIViewBase, generics.RetrieveAPIView):
 
 
 class ProductListAPIView(ProductAPIViewBase, generics.ListAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [
-        authentication.SessionAuthentication,
-        authentication.TokenAuthentication,
-    ]
+    # permission_classes = [permissions.IsAuthenticated]
+    # authentication_classes = [
+    #     authentication.SessionAuthentication,
+    #     TokenAuth,
+    # ]
     pass
-
 
 class ProductCreateAPIView(ProductAPIViewBase, generics.CreateAPIView):
     # permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, *args, **kwargs):
+        print(self.request)
         return Response(
-            {"message": "GET method for creating a new product"},
+            {"message": f"using GET method only for creating a new {self.kwargs.get('product')}"},
             status=status.HTTP_200_OK,
         )
 

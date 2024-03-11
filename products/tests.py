@@ -120,8 +120,9 @@ class APIUrlTest(TestCase):
         response = self.client.put("/products/tv/1/update/", data=data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json()['screen_size'], 50)
-        self.assertEqual(response.json()['price'], '1100.00')
+        self.assertEqual(response.json()["screen_size"], 50)
+        self.assertEqual(response.json()["price"], "1100.00")
+
 
 # test class for authentication
 class ProductAuthTest(TestCase):
@@ -147,4 +148,20 @@ class ProductAuthTest(TestCase):
         # User.objects.create_user(username="test_user", password="pass")
         self.client.login(username="test_user", password="pass")
         response = self.client.get("/products/tv/create/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_auth_keyword(self):
+        keyword = "Bearer"
+        self.client.login()
+        auth_endpoint = "http://localhost:8000/api/auth/"
+        auth_response = self.client.post(
+            auth_endpoint, {"username": "test_user", "password": "pass"}
+        )
+        self.assertEqual(auth_response.status_code, status.HTTP_200_OK)
+        token = auth_response.json()['token']
+        endpoint = "http://localhost:8000/products/phone/"
+        response = self.client.get(
+            endpoint, headers = {'Authorization': f'{keyword} {token}'}
+        )
+        
         self.assertEqual(response.status_code, status.HTTP_200_OK)
