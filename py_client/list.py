@@ -16,7 +16,7 @@ if auth_response.status_code == 200:
     token = auth_response.json()['token']
 
     headers = {
-        'Authorization': f'Token {token}'
+        'Authorization': f'Bearer {token}'
         }
     print(headers)
 

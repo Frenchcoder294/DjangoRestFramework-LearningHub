@@ -1,14 +1,14 @@
 import requests
 
-endpoint = 'http://localhost:8000/products/laptop/create/'
+endpoint = 'http://localhost:8000/products/tv/create/'
 #endpoint = 2
 
 
 data = {
-    'brand': 'apple',
-    'model': 'x1eqe',
-    'price': 1959.97,
-    'screen_size': 15,
+    "brand": "samsung",
+    "model": "d254",
+    "price": 1959.97,
+    "screen_size": 55,
 }
 
 response = requests.post(endpoint, json=data)

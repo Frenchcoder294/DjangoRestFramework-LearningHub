@@ -138,7 +138,7 @@ class ProductAuthTest(TestCase):
                 "brand": "samsung",
                 "model": "d254",
                 "price": 1959.97,
-                "screen_sze": 55,
+                "screen_size": 55,
             },
         )
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
