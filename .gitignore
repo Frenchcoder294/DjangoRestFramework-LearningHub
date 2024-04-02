@@ -1,4 +1,9 @@
 /api/migrations
 /products/migrations
+/products/__pycache__
 db.sqlite3
 .vscode
+.dockerignore
+Dockerfile
+*.pyc
+.envs

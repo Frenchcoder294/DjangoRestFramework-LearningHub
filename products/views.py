@@ -32,8 +32,8 @@ class ProductAPIViewBase(generics.GenericAPIView):
 
     def get_queryset(self):
         # check if queryset is cached
-        queryset_cache_key = f"product_queryset_{self.kwargs.get('product')}"
-        queryset = cache.get(queryset_cache_key)
+        # queryset_cache_key = f"product_queryset_{self.kwargs.get('product')}"
+        queryset = None  # cache.get(queryset_cache_key)
         if queryset is None:
             product = self.kwargs.get("product").capitalize()
             model_mapping = {
@@ -45,7 +45,7 @@ class ProductAPIViewBase(generics.GenericAPIView):
             model = model_mapping.get(product, None)
             queryset = model.objects.all() if model else None
             # Cache the queryset for future requests
-            cache.set(queryset_cache_key, queryset)
+            # cache.set(queryset_cache_key, queryset)
         return queryset
 
     def get_object(self):

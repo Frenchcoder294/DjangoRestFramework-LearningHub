@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  walmart:
+    build: ./app
+    container_name: walmart_c
+    ports:
+      - '8080:8080'
+    volumes:
+      - './walmart:/walmart'
+    
