@@ -1,4 +1,5 @@
 /api/migrations
+/api/__pycache__
 /products/migrations
 /products/__pycache__
 db.sqlite3

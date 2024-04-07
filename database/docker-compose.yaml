@@ -1,0 +1,10 @@
+# contianer for database
+version: "3"
+services:
+    mysql:
+        container_name: walmart_sql
+        ports:
+            - 3307:3306
+        environment:
+            - MYSQL_ROOT_PASSWORD=my_pass
+        image: mysql:8.0

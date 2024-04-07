@@ -1,6 +1,6 @@
 import requests
 
-endpoint = 'http://localhost:8000/products/tv/create/'
+endpoint = 'http://localhost:8080/products/tv/create/'
 #endpoint = 2
 
 
