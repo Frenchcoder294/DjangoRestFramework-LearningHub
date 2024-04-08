@@ -12,13 +12,13 @@ print('JSON:', auth_response.json())
 
 
 if auth_response.status_code == 200:
-    endpoint = "http://localhost:8000/products/phone/"
+    endpoint = "http://localhost:8000/products/tv/"
     token = auth_response.json()['token']
 
     headers = {
         'Authorization': f'Bearer {token}'
         }
-    print(headers)
+    # print(headers)
 
     response = requests.get(endpoint, headers=headers)
 

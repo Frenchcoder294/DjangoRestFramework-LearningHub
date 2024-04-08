@@ -5,6 +5,11 @@ services:
         container_name: walmart_sql
         ports:
             - 3307:3306
+        volumes:
+            - walmart_data:/var/lib/mysql
         environment:
             - MYSQL_ROOT_PASSWORD=my_pass
         image: mysql:8.0
+volumes:
+    walmart_data:
+        external: true

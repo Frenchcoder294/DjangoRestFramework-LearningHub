@@ -1,7 +1,8 @@
-/api/migrations
-/api/__pycache__
-/products/migrations
-/products/__pycache__
+api/migrations
+api/__pycache__
+products/migrations
+products/__pycache__
+walmart/__pycache__
 db.sqlite3
 .vscode
 .dockerignore
