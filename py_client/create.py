@@ -1,7 +1,7 @@
 import requests
 from getpass import getpass
 
-auth_endpoint = "http://localhost:8000/api/auth/"
+auth_endpoint = "http://localhost:8080/api/auth/"
 username = input('username:\n')
 password = getpass('password:\n')
 
@@ -9,7 +9,7 @@ auth_response = requests.post(auth_endpoint, json = {'username': username, 'pass
 print('JSON:', auth_response.json())
 
 if auth_response.status_code == 200:
-    endpoint = 'http://localhost:8000/products/tv/create/'
+    endpoint = 'http://localhost:8080/products/tv/create/'
     token = auth_response.json()['token']
 
     headers = {
@@ -18,10 +18,10 @@ if auth_response.status_code == 200:
     # print(headers)
     
     data = {
-        "brand": "samsung",
-        "model": "d254",
-        "price": 1959.97,
-        "screen_size": 55,
+        "brand": "apple",
+        "model": "3306",
+        "price": 6959.97,
+        "screen_size": 60,
     }
 
     response = requests.post(endpoint, json=data, headers=headers)

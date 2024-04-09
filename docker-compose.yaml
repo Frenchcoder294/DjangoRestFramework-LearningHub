@@ -5,4 +5,26 @@ services:
     container_name: walmart_c
     ports:
       - 8080:8080
+    volumes:
+      - ./walmart/settings.py:/app/walmart/settings.py
+    depends_on:
+      - mysql
     image: walmart:1
+    networks:
+      - backend
+  mysql:
+      container_name: walmart_sql
+      ports:
+          - 3307:3306
+      volumes:
+          - walmart_data:/var/lib/mysql
+      environment:
+          - MYSQL_ROOT_PASSWORD=my_pass
+      image: mysql:8.0
+      networks:
+        - backend
+volumes:
+    walmart_data:
+        external: true
+networks:
+  backend:

@@ -73,8 +73,8 @@ DATABASES = {
         'NAME': 'walmart',
         'USER': 'root', 
         'PASSWORD': 'my_pass', 
-        'HOST': 'localhost', 
-        'PORT': '3307', 
+        'HOST': 'mysql', 
+        'PORT': '3306', 
     }
 }
 
