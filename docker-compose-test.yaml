@@ -1,0 +1,9 @@
+# container for walmart
+version: "3"
+services:
+  walmart:
+    image: walmart:1
+    command: 
+    - "python"
+    - "manage.py"
+    - "test"

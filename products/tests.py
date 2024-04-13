@@ -30,16 +30,16 @@ class ProductAPIViewTests(TestCase):
         self.client = APIClient()
         self.user = User.objects.create_user(username="test_user", password="pass")
         self.tv = Tv.objects.create(
-            model="Test TV", brand="Test brand", screen_size=55, price=999
+            pk=1, model="Test TV", brand="Test brand", screen_size=55, price=999
         )
         # self.phone = Phone.objects.create(
         #     model="Test phone", brand="Test brand", color="black", price=999
         # )
         self.laptop = Laptop.objects.create(
-            model="Test laptop", brand="Test brand", screen_size=15, price=999
+            pk=1, model="Test laptop", brand="Test brand", screen_size=15, price=999
         )
         self.earbud = Earbud.objects.create(
-            model="Test earbud", brand="Test brand", with_lcd=False, price=999
+            pk=1, model="Test earbud", brand="Test brand", with_lcd=False, price=999
         )
 
     # test get_serializer_class for tv
@@ -83,7 +83,7 @@ class APIUrlTest(TestCase):
         self.client = APIClient()
         self.user = User.objects.create_user(username="test_user", password="pass")
         self.tv = Tv.objects.create(
-            model="Test TV", brand="Test brand", screen_size=55, price=999
+            pk=1, model="Test TV", brand="Test brand", screen_size=55, price=999
         )
 
     def test_create_url(self):
@@ -117,6 +117,7 @@ class APIUrlTest(TestCase):
             "screen_size": 50,
             "price": 1100,
         }
+        self.client.login(username="test_user", password="pass")
         response = self.client.put("/products/tv/1/update/", data=data)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -158,10 +159,10 @@ class ProductAuthTest(TestCase):
             auth_endpoint, {"username": "test_user", "password": "pass"}
         )
         self.assertEqual(auth_response.status_code, status.HTTP_200_OK)
-        token = auth_response.json()['token']
+        token = auth_response.json()["token"]
         endpoint = "http://localhost:8000/products/phone/"
         response = self.client.get(
-            endpoint, headers = {'Authorization': f'{keyword} {token}'}
+            endpoint, headers={"Authorization": f"{keyword} {token}"}
         )
-        
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)

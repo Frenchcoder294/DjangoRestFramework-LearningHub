@@ -66,7 +66,6 @@ class ProductListAPIView(ProductAPIViewBase, generics.ListAPIView):
 class ProductCreateAPIView(ProductAPIViewBase, generics.CreateAPIView):
 
     def get(self, request, *args, **kwargs):
-        print(self.request)
         return Response(
             {
                 "message": f"using GET method only for creating a new {self.kwargs.get('product')}"
