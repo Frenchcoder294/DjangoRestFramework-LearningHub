@@ -19,9 +19,9 @@ if auth_response.status_code == 200:
     
     data = {
         "brand": "apple",
-        "model": "3306",
-        "price": 6959.97,
-        "screen_size": 60,
+        "model": "3355",
+        "price": 9550.97,
+        "screen_size": 59,
     }
 
     response = requests.post(endpoint, json=data, headers=headers)

@@ -19,7 +19,9 @@ services:
       ports:
           - 3307:3306
       volumes:
-          - walmart_data:/var/lib/mysql
+      - type: volume
+        source: walmart_data
+        target: /var/lib/mysql
       environment:
           - MYSQL_ROOT_PASSWORD=my_pass
       image: mysql:8.0
